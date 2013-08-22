@@ -1,0 +1,28 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+
+    <View
+        android:id="@+id/frag_newbooks_but"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#30508090"
+        android:text="hello" />
+
+    <com.fima.cardsui.views.CardUI
+        android:id="@+id/main_cardUI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_above="@+id/pb_fragNewBooks"
+        columnCount="1"/>
+    <ProgressBar
+        android:id="@+id/pb_fragNewBooks"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_gravity="center"/>
+	
+
+</FrameLayout>

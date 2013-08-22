@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>My Library App</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H3>Welcome!</H3>
+<BR>
+<FORM enctype="multipart/form-data" action="index.php" method="REQUEST">
+Host<INPUT name="host" value="192.168.43.1" type="text"> <BR>
+Username<INPUT id="user" name="user" value="username" type="text">
+<BR>
+Password<INPUT id="pass" name="pass" value="password" type="password">
+<BR>
+Is debug<INPUT name="debug" type="checkbox" value="1"
+	checked="checked"> <BR>
+<HR>
+<H5>Login type</H5>
+Non-member<INPUT name="login_type" type="radio" value="non-member"
+	checked="checked" /><BR>
+Member<INPUT name="login_type" type="radio" value="member"
+	checked="checked"><BR>
+Volunteer<INPUT name="login_type" type="radio" value="volunteer"
+	checked="checked"><BR>
+Admin<INPUT name="login_type" type="radio" value="admin"
+	checked="checked"> <BR>
+<BR>
+<HR>
+Request Code<INPUT name="rcode" value="4" type="text"><BR>
+Request Data<INPUT name="rdata" value="" type="text"><BR>
+&nbsp; <!-- The data encoding type, enctype, MUST be specified as below -->
+<!-- MAX_FILE_SIZE must precede the file input field --> <INPUT
+	type="hidden" name="MAX_FILE_SIZE" value="300000000" /> <!-- Name of input element determines name in $_FILES array -->
+Send this file:....<INPUT name="0" type="file" /> <INPUT name="1"
+	type="file" /><BR>
+<HR>
+<INPUT type="submit" value="Send File" /></FORM>
+</CENTER>
+</BODY>
+</HTML>

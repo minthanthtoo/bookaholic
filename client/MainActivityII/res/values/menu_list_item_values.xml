@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array 
+        name="menu_group">
+        <item ><u>Library</u></item>
+        <item >DashBoard</item>
+        <item >Activities</item>
+        <item >My Place</item>
+    </string-array>
+    <string-array 
+        name="menu_group_library">
+        <item ><u>Browse Books</u></item>
+        <item >New Books</item>
+        <item >Book suggestions</item>
+        <item >Book collections</item>
+    </string-array>
+    <string-array 
+        name="menu_group_dashboard">
+        <item >Official Board</item>
+        <item >Share Board</item>
+        <item >Tops</item>
+    </string-array>
+    <string-array 
+        name="menu_group_activities">
+        <item >Library Activities</item>
+        <item >Friend Activities</item>
+    </string-array>
+    <string-array 
+        name="menu_group_myplace">
+        <item >My board</item>
+        <item >Friends</item>
+        <item >Messages</item>
+        <item >Photos</item>
+        <item >My Favorites</item>
+        <item >My Activites</item>
+        <item >My Book Collections</item>
+        <item >My Book Suggestions</item>
+        <item >About</item>
+    </string-array>
+
+<string-array 
+	name="menu_items">
+	<item >Library</item>
+	<item ><u>Browse Books</u></item>
+	<item >New Books</item>
+	<item >Book suggestions</item>
+	<item >Book collections</item>
+	<item >DashBoard</item>
+	<item >Official Board</item>
+	<item >Share Board</item>
+	<item >Tops</item>
+	<item >Activities</item>
+	<item >Library Activities</item>
+	<item >Friend Activities</item>
+	<item >My Places</item>
+	<item >My board</item>
+	<item >Friends</item>
+	<item >Messages</item>
+	<item >Photos</item>
+	<item >My Favorites</item>
+	<item >My Activites</item>
+	<item >My Book Collections</item>
+	<item >My Book Suggestions</item>
+	<item >About</item>
+</string-array>
+<string-array 
+	name="menu_items_types">
+	<item >category://library</item>
+	<item >action://library.books.browse</item>
+	<item >action://library.books.new</item>
+	<item >action://library.books.suggestions</item>
+	<item >action://library.books.collections</item>
+	<item >category://dashboard</item>
+	<item >action://dashboard.official</item>
+	<item >action://dashboard.share</item>
+	<item >action://dashboard.tops</item>
+	<item >category://activities/</item>
+	<item >action://activities.library</item>
+	<item >action://activities.friends</item>
+	<item >category://my</item>
+	<item >action://my.board</item>
+	<item >action://my.friends</item>
+	<item >action://my.messages</item>
+	<item >action://my.photos</item>
+	<item >action://my.favorites</item>
+	<item >action://my.activites</item>
+	<item >action://my.books.collections</item>
+	<item >action://my.books.suggestions</item>
+	<item >action://about</item>
+</string-array>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="prefs_login_name">prefs:login</string>
+	<integer name="prefs_login_mode">0</integer><!-- android.app.Activity.MODE_PRIVATE -->
+	<string name="prefs_login_remoteBackEnd" >remoteBackEnd</string>
+	<string name="prefs_login_username" >username</string>
+	<string name="prefs_login_password">password</string>
+	<string name="prefs_login_type">loginType</string>
+</resources>

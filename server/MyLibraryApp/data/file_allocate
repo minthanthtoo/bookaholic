@@ -1,0 +1,11 @@
+[file-store-filter]
+
+available=true
+allowed-post-codes []=0
+allowed-post-codes []=1
+allowed-post-codes []=2
+allowed-post-codes []=3
+allowed-post-codes []=4
+allowed-post-codes []=5
+
+file-store-sites[]=ftp://ayflumm_zxq@ayflumm.zxq.net/MyLibraryApp/data/
