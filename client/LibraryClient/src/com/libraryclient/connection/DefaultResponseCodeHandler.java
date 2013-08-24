@@ -1,12 +1,10 @@
 package com.libraryclient.connection;
 
-public class DefaultResponseCodeHandler implements ResponseCodeHandler
-{
+public class DefaultResponseCodeHandler implements ResponseCodeHandler {
 
-	public void onResponse(int responseCode)
-	{
-		if (responseCode >= 300)
-		{
+	@Override
+	public void onResponse(int responseCode) {
+		if (responseCode >= 300) {
 
 		}
 	}

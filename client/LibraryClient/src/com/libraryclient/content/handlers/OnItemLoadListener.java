@@ -1,11 +1,9 @@
 package com.libraryclient.content.handlers;
 
-import com.libraryclient.connection.*;
-import com.libraryclient.content.*;
-import com.libraryclient.content.items.*;
+import com.libraryclient.connection.Connector;
+import com.libraryclient.content.Item;
 
-public interface OnItemLoadListener<I extends Item>
-{
+public interface OnItemLoadListener<I extends Item> {
 
 	public void onItemLoaded(Connector r, I i);
 

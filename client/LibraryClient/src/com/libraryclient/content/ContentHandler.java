@@ -23,9 +23,9 @@ public abstract class ContentHandler<E extends Item> {
 
 	private Map<String, Thread> mHandles = new HashMap<String, Thread>();
 
-	public abstract void onItemLoaded(Connector r,E i);
+	public abstract void onItemLoaded(Connector r, E i);
 
-	public abstract void onLoading(Connector r,E i);
+	public abstract void onLoading(Connector r, E i);
 
 	public abstract void onReload(Connector r);
 
@@ -44,7 +44,8 @@ public abstract class ContentHandler<E extends Item> {
 	public void startHandling(final Connector request) {
 		mRequests.add(request);
 		final InputStream is = request.getResponseStream();
-		final XmlHandler h = new XmlHandlerRawItem(this, request,Item.TYPE_BASIC);
+		final XmlHandler h = new XmlHandlerRawItem(this, request,
+				Item.TYPE_BASIC);
 		mXmlHandlers.add(h);
 		Thread t = new Thread(new Runnable() {
 
@@ -54,12 +55,13 @@ public abstract class ContentHandler<E extends Item> {
 					SAXParserFactory factory = SAXParserFactory.newInstance();
 					SAXParser parser;
 					parser = factory.newSAXParser();
-					int start =(int) System.currentTimeMillis();
-					System.out.println("xml parse Start:"+start);
+					int start = (int) System.currentTimeMillis();
+					System.out.println("xml parse Start:" + start);
 					parser.parse(is, h);
-					System.out.println("xml parse End:\nDuration"+((int)System.currentTimeMillis()-start));
+					System.out.println("xml parse End:\nDuration"
+							+ ((int) System.currentTimeMillis() - start));
 					System.out.println(new String(request.getResponseBytes()));
-					
+
 					is.close();
 				} catch (ParserConfigurationException ex) {
 				} catch (SAXException ex) {
@@ -85,7 +87,7 @@ public abstract class ContentHandler<E extends Item> {
 	public void stopHandling(Connector request) {
 
 		mHandles.remove(request.toString()).interrupt();
-		//request.setRequestFinished(false);
+		// request.setRequestFinished(false);
 	}
 
 	public void reloadHandling(Connector request) {

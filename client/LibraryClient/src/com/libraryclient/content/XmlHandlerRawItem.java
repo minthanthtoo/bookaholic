@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
@@ -22,8 +23,8 @@ public class XmlHandlerRawItem extends XmlHandler {
 	 * tree.They are {@code String} names coded as
 	 * {@code "uri + ":" + localName + ":" + qName"}
 	 */
-	Deque<String> mParentElements = new ArrayDeque<String>();
-	Deque<Integer> mParentLevels = new ArrayDeque<Integer>();
+	Stack<String> mParentElements = new Stack<String>();
+	Stack<Integer> mParentLevels = new Stack<Integer>();
 	/**
 	 * A map showing the maximum level or id of an element.
 	 * <ul>
@@ -44,17 +45,17 @@ public class XmlHandlerRawItem extends XmlHandler {
 	 * called,this variable is incremented.The initial value is "zero".This can
 	 * be reset by {@link resetItemCount()} and get by {@link getItemCount()}
 	 * .This variable may count the parsed Tags or Elements,not guaranteed to be
-	 * parsed till the end of the last Tag or Element and it does not show the depth of the
-	 * tree,also counting inclusively the parent Tags or Elements.
+	 * parsed till the end of the last Tag or Element and it does not show the
+	 * depth of the tree,also counting inclusively the parent Tags or Elements.
 	 * This only shows the count of the currently loading Tag or Element.
 	 */
 	private int mItemCounter = 0;
-	
+
 	private Connector mConnector = null;
 
 	private ItemMultiplier mItemFactory;
 
-	public XmlHandlerRawItem(ContentHandler h,Connector c ,int itemTypeConst) {
+	public XmlHandlerRawItem(ContentHandler h, Connector c, int itemTypeConst) {
 		mContentHandler = h;
 		mConnector = c;
 		mItemFactory = new ItemMultiplier(itemTypeConst);
@@ -103,14 +104,15 @@ public class XmlHandlerRawItem extends XmlHandler {
 		if (!mParentElements.isEmpty()) {
 			int currentLevel = mElementLevels.containsKey(eleName) ? mElementLevels
 					.get(eleName) + 1 : 0;
-			mParentLevels.addLast(currentLevel);
+			mParentLevels.push(currentLevel);
 			mElementLevels.put(eleName, currentLevel);
 		} else {
 			mParentLevels.add(0);
 		}
 
 		// create new item
-		Item i = mItemFactory.newItem();// new Item(uri + ":" + localName + ":" + qName);
+		Item i = mItemFactory.newItem();// new Item(uri + ":" + localName + ":"
+										// + qName);
 		int l = attributes.getLength();
 
 		// put attributes name-value pairs into the created item
@@ -120,11 +122,11 @@ public class XmlHandlerRawItem extends XmlHandler {
 		// put the item 'i' into the map of elements
 		elements.put(
 				uri + ":" + localName + ":" + qName + ":"
-						+ mParentLevels.getLast(), i);
+						+ mParentLevels.peek(), i);
 
 		// put the item 'i' into the parent item as a sub-item
 		if (!mParentElements.isEmpty()) {
-			Item parent = elements.get(mParentElements.peekLast() + ":"
+			Item parent = elements.get(mParentElements.peek() + ":"
 					+ mParentLevels.toArray()[mParentLevels.size() - 2]);
 			parent.addSubItem(i);
 		}
@@ -142,8 +144,10 @@ public class XmlHandlerRawItem extends XmlHandler {
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
-		mContentHandler.onItemLoaded(mConnector,elements.get(mParentElements.removeLast()
-				+ ":" + mParentLevels.removeLast()));
+		mContentHandler.onItemLoaded(
+				mConnector,
+				elements.get(mParentElements.pop() + ":"
+						+ mParentLevels.pop()));
 	}
 
 	/*
@@ -160,11 +164,11 @@ public class XmlHandlerRawItem extends XmlHandler {
 		// length)+"<"+start+","+length);
 		if (elements.isEmpty())
 			return;
-		Item item = elements.get(mParentElements.getLast() + ":"
-				+ mParentLevels.getLast());
+		Item item = elements.get(mParentElements.peek() + ":"
+				+ mParentLevels.peek());
 		item.concatItemValue(new String(ch, start, length));
-		
-		mContentHandler.onLoading(mConnector,item);
+
+		mContentHandler.onLoading(mConnector, item);
 	}
 
 	/*

@@ -11,6 +11,7 @@ public class BookQueueCancel extends Post {
 		super(postCode, postData);
 	}
 
+	@Override
 	public String getTargetResponseTag() {
 		return Posts.BookQueueCancel.RESPONSE_TAG;
 	}

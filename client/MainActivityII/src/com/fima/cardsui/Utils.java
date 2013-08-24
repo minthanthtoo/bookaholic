@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 
 public class Utils {
-	
-	
 
 	/**
 	 * This method converts device specific pixels to device independent pixels.
@@ -29,11 +27,11 @@ public class Utils {
 		int px = (int) (dp * (metrics.densityDpi / 160f));
 		return px;
 	}
-	
+
 	public static float convertDpToPixel(Context context, float dp) {
 
 		DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-		float px = (float) (dp * (metrics.densityDpi / 160f));
+		float px = (dp * (metrics.densityDpi / 160f));
 		return px;
 	}
 

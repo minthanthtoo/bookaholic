@@ -1,15 +1,11 @@
 package com.libraryclientforandroid;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Stack;
 
 import android.os.AsyncTask;
-import android.view.View;
-import android.view.View.OnClickListener;
 
 import com.libraryclient.Client;
-import com.libraryclient.config.Connection;
 import com.libraryclient.connection.BasicPost;
 import com.libraryclient.connection.BasicRequest;
 import com.libraryclient.connection.Connector;
@@ -17,8 +13,6 @@ import com.libraryclient.connection.Post;
 import com.libraryclient.connection.Request;
 import com.libraryclient.content.ContentHandler;
 import com.libraryclient.content.DefaultContentHandler;
-import com.libraryclient.content.Item;
-import com.libraryclient.content.handlers.ConnectCodeSpecificItemHandler;
 
 /**
  * Entry Api Class for using LibraryClient Library
@@ -28,36 +22,36 @@ import com.libraryclient.content.handlers.ConnectCodeSpecificItemHandler;
  * 
  * <pre>
  * // prepare connection client
- * Connection.USERNAME = "username";
- * Connection.PASSWORD = "password";
- * Connection.CONNECTION_WEBSITE = "http://www.site.com/path/to/backend";
+ * Connection.USERNAME = &quot;username&quot;;
+ * Connection.PASSWORD = &quot;password&quot;;
+ * Connection.CONNECTION_WEBSITE = &quot;http://www.site.com/path/to/backend&quot;;
  * BaseApi api = new BaseApi();
  * 
  * // create content handler
  * ConnectCodeSpecificItemHandler h = new ConnectCodeSpecificItemHandler(
- * 	new com.libraryclient.content.handlers.OnItemLoadListener() {
- * 		public void onItemLoaded(Connector c, final Item i) {
- * 			// update UI when an item has been loaded
- * 		}
+ * 		new com.libraryclient.content.handlers.OnItemLoadListener() {
+ * 			public void onItemLoaded(Connector c, final Item i) {
+ * 				// update UI when an item has been loaded
+ * 			}
  * 
- * 		public void onStartLoading(Connector c) {
- * 			// triggers 'progress GUI objects'
- * 		}
+ * 			public void onStartLoading(Connector c) {
+ * 				// triggers 'progress GUI objects'
+ * 			}
  * 
- * 		public void onFinishLoading(Connector c) {
- * 			// finish 'progress GUI objects'
- * 		}
+ * 			public void onFinishLoading(Connector c) {
+ * 				// finish 'progress GUI objects'
+ * 			}
  * 
- * 	});
- * 	
+ * 		});
+ * 
  * // triggers connection
- * Connector c = new BasicPost(1 //connect code
- * , "0=value1&&1=value2"); // request data
+ * Connector c = new BasicPost(1 // connect code
+ * 		, &quot;0=value1&amp;&amp;1=value2&quot;); // request data
  * 
  * if (c instanceof Request) {
  * 	api.request((Request) c, h);
  * } else if (c instanceof Post) {
- * 	((Post) c).addPostFile("0", new File("/path/to/file"));
+ * 	((Post) c).addPostFile(&quot;0&quot;, new File(&quot;/path/to/file&quot;));
  * 	api.post((Post) c, h);
  * }
  * </pre>
@@ -72,7 +66,8 @@ public class BaseApi {
 		request(requestCode, requestdata, new DefaultContentHandler());
 	}
 
-	public static void request(int requestCode, String requestdata, ContentHandler h) {
+	public static void request(int requestCode, String requestdata,
+			ContentHandler h) {
 		Request r = new BasicRequest(requestCode, requestdata);
 		ConnectClient c = new ConnectClient();
 		ConnectClient.setContentHandler(r, h);
@@ -125,6 +120,7 @@ public class BaseApi {
 			cl.setContentHandler(r.getConnectCode(), mHandler);
 		}
 
+		@Override
 		protected Connector doInBackground(Connector[] requests) {
 			mRequestStack.add(requests[0]);
 			try {

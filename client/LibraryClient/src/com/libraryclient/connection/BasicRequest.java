@@ -13,6 +13,7 @@ public class BasicRequest extends Request {
 	 * lower level tags will also be added as their sub-items
 	 * 
 	 */
+	@Override
 	public String getTargetResponseTag() {
 		return Requests.BasicRequest.RESPONSE_TAG;
 	};

@@ -11,6 +11,7 @@ public class BookReturn extends Post {
 		super(postCode, postData);
 	}
 
+	@Override
 	public String getTargetResponseTag() {
 		return Posts.BookReturn.RESPONSE_TAG;
 	}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><classpath>
+<classpathentry kind="src" path="src"/>
+<classpathentry kind="output" path="bin"/>
+<classpathentry kind="lib" path="/mnt/sdcard/Java/org.junit4_4.3.1/junit.jar" exported="false"/>
+<classpathentry kind="lib" path="/mnt/sdcard/Java/org.hamcrest.core_1.1.0.v20090501071000.jar" exported="false"/>
+</classpath>

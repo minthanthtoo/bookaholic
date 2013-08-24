@@ -1,7 +1,5 @@
 package com.libraryclient.connection;
 
-import java.net.URI;
-
 import com.libraryclient.connection.posts.Posts;
 
 public class BasicPost extends Post {
@@ -15,6 +13,7 @@ public class BasicPost extends Post {
 	 * lower level tags will also be added as their sub-items
 	 * 
 	 */
+	@Override
 	public String getTargetResponseTag() {
 		return Posts.BasicPost.RESPONSE_TAG;
 	}

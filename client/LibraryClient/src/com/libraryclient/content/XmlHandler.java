@@ -1,5 +1,5 @@
 package com.libraryclient.content;
 
-public abstract class XmlHandler extends org.xml.sax.helpers.DefaultHandler{
+public abstract class XmlHandler extends org.xml.sax.helpers.DefaultHandler {
 
 }

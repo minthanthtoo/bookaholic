@@ -1,12 +1,22 @@
 package com.libraryclient.test;
 
-import com.libraryclient.connection.*;
-import com.libraryclient.content.*;
-import java.io.*;
-import javax.xml.*;
-import javax.xml.parsers.*;
-import org.junit.*;
-import org.xml.sax.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.junit.Test;
+import org.xml.sax.SAXException;
+
+import com.libraryclient.connection.BasicRequest;
+import com.libraryclient.content.DefaultContentHandler;
+import com.libraryclient.content.Item;
+import com.libraryclient.content.XmlHandler;
+import com.libraryclient.content.XmlHandlerRawItem;
 
 public class Test1 {
 
@@ -22,7 +32,8 @@ public class Test1 {
 																				// know
 			// factory.setSchema(new Schema().getClass());
 			parser = factory.newSAXParser();
-			XmlHandler h = new XmlHandlerRawItem(new DefaultContentHandler(),new BasicRequest(1,""),Item.TYPE_BASIC);
+			XmlHandler h = new XmlHandlerRawItem(new DefaultContentHandler(),
+					new BasicRequest(1, ""), Item.TYPE_BASIC);
 			parser.parse(new FileInputStream(new File("people.xml")), h);
 		} catch (ParserConfigurationException ex) {
 		} catch (SAXException ex) {

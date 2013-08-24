@@ -110,8 +110,7 @@ public class XmlHandlerTest extends XmlHandler {
 	 */
 	@Override
 	public void endPrefixMapping(String prefix) throws SAXException {
-		System.out.print(prefix
-				+ ".........endPrefixMapping");
+		System.out.print(prefix + ".........endPrefixMapping");
 		super.endPrefixMapping(prefix);
 	}
 
@@ -125,11 +124,14 @@ public class XmlHandlerTest extends XmlHandler {
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 		// TODO Auto-generated method stub
-		System.out.print(uri + ":" + localName+";" );
-		int l=attributes.getLength()-1;
-		
-		if (l>=0)System.out.print("attribs");
-		for(;l>=0;l--)System.out.print(attributes.getValue(l)+":"+attributes.getQName(l));
+		System.out.print(uri + ":" + localName + ";");
+		int l = attributes.getLength() - 1;
+
+		if (l >= 0)
+			System.out.print("attribs");
+		for (; l >= 0; l--)
+			System.out.print(attributes.getValue(l) + ":"
+					+ attributes.getQName(l));
 		super.startElement(uri, localName, qName, attributes);
 	}
 
@@ -143,7 +145,7 @@ public class XmlHandlerTest extends XmlHandler {
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
 		// TODO Auto-generated method stub
-		System.out.print(uri + ":" + localName );
+		System.out.print(uri + ":" + localName);
 		super.endElement(uri, localName, qName);
 	}
 
@@ -156,7 +158,7 @@ public class XmlHandlerTest extends XmlHandler {
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {
 		// TODO Auto-generated method stub
-		System.out.print(new String(ch, start, length)+"("+ch.length+")");
+		System.out.print(new String(ch, start, length) + "(" + ch.length + ")");
 		super.characters(ch, start, length);
 	}
 
@@ -169,7 +171,7 @@ public class XmlHandlerTest extends XmlHandler {
 	@Override
 	public void ignorableWhitespace(char[] ch, int start, int length)
 			throws SAXException {
-		System.out.print(new String(ch, start, length)+"<"+ch.length+">");
+		System.out.print(new String(ch, start, length) + "<" + ch.length + ">");
 		super.ignorableWhitespace(ch, start, length);
 	}
 
@@ -219,7 +221,7 @@ public class XmlHandlerTest extends XmlHandler {
 	 */
 	@Override
 	public void error(SAXParseException e) throws SAXException {
-		//e.printStackTrace(System.err);
+		// e.printStackTrace(System.err);
 		super.error(e);
 	}
 

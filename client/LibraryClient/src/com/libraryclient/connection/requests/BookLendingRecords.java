@@ -1,21 +1,18 @@
 package com.libraryclient.connection.requests;
 
-import com.libraryclient.connection.*;
+import com.libraryclient.connection.Request;
 
-public class BookLendingRecords extends Request
-{
-	public BookLendingRecords(String requestData)
-	{
+public class BookLendingRecords extends Request {
+	public BookLendingRecords(String requestData) {
 		this(Requests.AuthorList.REQUEST_CODE, requestData);
 	}
 
-	private BookLendingRecords(int requestCode, String requestData)
-	{
+	private BookLendingRecords(int requestCode, String requestData) {
 		super(requestCode, requestData);
 	}
 
-	public String getTargetResponseTag()
-	{
+	@Override
+	public String getTargetResponseTag() {
 		return Requests.AuthorList.RESPONSE_TAG;
 	}
 }

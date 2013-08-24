@@ -1,16 +1,23 @@
 package com.libraryclientforandroid;
 
-import android.app.*;
-import android.os.*;
-import android.view.*;
-import android.view.View.*;
-import android.widget.*;
-import com.libraryclient.config.*;
-import com.libraryclient.connection.*;
-import com.libraryclient.content.*;
-import com.libraryclient.content.handlers.*;
-import com.libraryclient.content.items.*;
-import java.io.*;
+import java.io.File;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.libraryclient.config.Connection;
+import com.libraryclient.connection.BasicRequest;
+import com.libraryclient.connection.Connector;
+import com.libraryclient.connection.Post;
+import com.libraryclient.connection.Request;
+import com.libraryclient.content.Item;
+import com.libraryclient.content.handlers.ConnectCodeSpecificItemHandler;
+import com.libraryclient.content.items.BookInfoGeneral;
 
 public class MainActivity extends Activity {
 	static int counter = 0;
@@ -31,6 +38,7 @@ public class MainActivity extends Activity {
 
 	/** Called when the activity is first created. */
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
@@ -49,8 +57,7 @@ public class MainActivity extends Activity {
 		/**** prepare connection client ******/
 		Connection.USERNAME = "username";
 		Connection.PASSWORD = "password";
-		final BaseApi api = new BaseApi();
-		
+
 		/***** create content handler *****/
 		h = new ConnectCodeSpecificItemHandler<BookInfoGeneral>(
 				new com.libraryclient.content.handlers.OnItemLoadListener<BookInfoGeneral>() {
@@ -58,9 +65,12 @@ public class MainActivity extends Activity {
 					long startTime = 0;
 					long endTime = 0;
 
-					public void onItemLoaded(Connector c, final BookInfoGeneral i) {
+					@Override
+					public void onItemLoaded(Connector c,
+							final BookInfoGeneral i) {
 						runOnUiThread(new Runnable() {
 
+							@Override
 							public void run() {
 								tv1.append("-|-");
 								itemCount++;
@@ -69,9 +79,11 @@ public class MainActivity extends Activity {
 						});
 					}
 
+					@Override
 					public void onStartLoading(Connector c) {
 						runOnUiThread(new Runnable() {
 
+							@Override
 							public void run() {
 								itemCount = 0;
 								startTime = System.currentTimeMillis();
@@ -81,18 +93,22 @@ public class MainActivity extends Activity {
 						});
 					}
 
+					@Override
 					public void onFinishLoading(Connector c) {
 						runOnUiThread(new Runnable() {
 
+							@Override
 							public void run() {
 								endTime = System.currentTimeMillis();
 								int c = h.getItemCount();
 								Item i = (c > 0) ? h.getLoadedItem(c - 1)
-										: null;//new Item();
+										: null;// new Item();
 								tv1.append("\nItem COUNT="
-									//	+ i.getSubItemCount() + "/" + itemCount
+										// + i.getSubItemCount() + "/" +
+										// itemCount
 										+ " Duration=" + (endTime - startTime)
-										+ "\n<<-START->>\n" + i + "\n<-Item END->\n");
+										+ "\n<<-START->>\n" + i
+										+ "\n<-Item END->\n");
 								tv1.append("\n<<-FINISH->>\n");
 								b1.setText("Left:"
 										+ BaseApi
@@ -103,21 +119,22 @@ public class MainActivity extends Activity {
 					}
 
 				});
-		
+
 		/**** triggers connection *****/
 		b1.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View p1) {
 				b1.setText("Request:" + (counter++));
 				Connection.CONNECTION_WEBSITE = et4.getText().toString();
 				Connector c = new BasicRequest(Integer.valueOf(et1.getText()
 						.toString()), et2.getText().toString());
 				if (c instanceof Request) {
-					api.request((Request) c, h);
+					BaseApi.request((Request) c, h);
 				} else if (c instanceof Post) {
 					((Post) c).addPostFile("0", new File(et3.getText()
 							.toString()));
-					api.post((Post) c, h);
+					BaseApi.post((Post) c, h);
 				}
 				// if (h.getItemCount() > 0)
 				// tv1.setText(

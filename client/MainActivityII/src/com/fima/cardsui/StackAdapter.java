@@ -17,7 +17,7 @@ public class StackAdapter extends BaseAdapter {
 	private boolean mSwipeable;
 
 	public StackAdapter(Context context, ArrayList<AbstractCard> stacks,
-						boolean swipable) {
+			boolean swipable) {
 		mContext = context;
 		mStacks = stacks;
 		mSwipeable = swipable;
@@ -64,7 +64,8 @@ public class StackAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	public View getView(int position, int columnCount, View convertView, ViewGroup parent) {
+	public View getView(int position, int columnCount, View convertView,
+			ViewGroup parent) {
 		final CardStack stack = getItem(position);
 		stack.setAdapter(this);
 		stack.setPosition(position);
@@ -81,39 +82,39 @@ public class StackAdapter extends BaseAdapter {
 		// convertView.setTag(stack);
 		// }
 		// } else if (convertView == null) {
-		//	convertView = stack.getView(mContext, mSwipeable);
+		// convertView = stack.getView(mContext, mSwipeable);
 		// convertView.setTag(stack);
 		// }
 
 		/***** start: cardStack position fixing *****/
-		int b = (position+1)/columnCount;
-		int c = (position+1)%columnCount;
-		if(c == 1){// if position is in the 1st column
-			if(b==0){
+		int b = (position + 1) / columnCount;
+		int c = (position + 1) % columnCount;
+		if (c == 1) {// if position is in the 1st column
+			if (b == 0) {
 				position = CardStack.STACK_POS_TYPE_LEFT_TOP;
-			}else if(getCount() <= position+columnCount){
+			} else if (getCount() <= position + columnCount) {
 				position = CardStack.STACK_POS_TYPE_LEFT_BOTTOM;
-			}else{
+			} else {
 				position = CardStack.STACK_POS_TYPE_LEFT_MIDDLE;
 			}
-		}else if(c==0){// if position is in the last column
-			if(b==1){
+		} else if (c == 0) {// if position is in the last column
+			if (b == 1) {
 				position = CardStack.STACK_POS_TYPE_RIGHT_TOP;
-			}else if(getCount() <= position+columnCount){
+			} else if (getCount() <= position + columnCount) {
 				position = CardStack.STACK_POS_TYPE_RIGHT_BOTTOM;
-			}else{
+			} else {
 				position = CardStack.STACK_POS_TYPE_RIGHT_MIDDLE;
 			}
-		}else{ // if columnCount > 2 && position is in any of middle columns
-			if(b==0){
+		} else { // if columnCount > 2 && position is in any of middle columns
+			if (b == 0) {
 				position = CardStack.STACK_POS_TYPE_TOP;
-			}else if(getCount() <= position+columnCount){
+			} else if (getCount() <= position + columnCount) {
 				position = CardStack.STACK_POS_TYPE_BOTTOM;
-			}else{
+			} else {
 				position = CardStack.STACK_POS_TYPE_MIDDLE;
 			}
 		}
-		convertView = stack.getView(mContext, mSwipeable,position);
+		convertView = stack.getView(mContext, mSwipeable, position);
 		/***** end: cardStack position fixing *****/
 
 		return convertView;

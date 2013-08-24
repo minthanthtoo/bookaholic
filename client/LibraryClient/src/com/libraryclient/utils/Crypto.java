@@ -61,12 +61,12 @@ public class Crypto {
 		try {
 			KeyGenerator kgen = KeyGenerator.getInstance(CIPHER_ALGORITHM);
 			SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-			
+
 			sr.setSeed(passphrase.getBytes());
 			kgen.init(128, sr);
-			
+
 			SecretKey skey = kgen.generateKey();
-            return skey.getEncoded();
+			return skey.getEncoded();
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}

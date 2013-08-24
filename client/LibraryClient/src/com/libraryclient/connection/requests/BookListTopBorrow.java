@@ -1,21 +1,18 @@
 package com.libraryclient.connection.requests;
 
-import com.libraryclient.connection.*;
+import com.libraryclient.connection.Request;
 
-public class BookListTopBorrow extends Request
-{
-	public BookListTopBorrow(String requestData)
-	{
+public class BookListTopBorrow extends Request {
+	public BookListTopBorrow(String requestData) {
 		this(Requests.BookListTopBorrow.REQUEST_CODE, requestData);
 	}
 
-	private BookListTopBorrow(int requestCode, String requestData)
-	{
+	private BookListTopBorrow(int requestCode, String requestData) {
 		super(requestCode, requestData);
 	}
 
-	public String getTargetResponseTag()
-	{
+	@Override
+	public String getTargetResponseTag() {
 		return Requests.BookListTopBorrow.RESPONSE_TAG;
 	}
 }

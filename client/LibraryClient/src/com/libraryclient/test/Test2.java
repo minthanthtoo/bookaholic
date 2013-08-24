@@ -3,11 +3,14 @@
  */
 package com.libraryclient.test;
 
-import com.libraryclient.*;
-import com.libraryclient.connection.*;
-import com.libraryclient.content.*;
-import org.junit.*;
-import java.io.*;
+import java.io.IOException;
+
+import org.junit.Test;
+
+import com.libraryclient.Client;
+import com.libraryclient.connection.BasicRequest;
+import com.libraryclient.connection.Connector;
+import com.libraryclient.content.DefaultContentHandler;
 
 /**
  * This class will test whether java.net.URLConnection does work.
@@ -18,28 +21,24 @@ import java.io.*;
 public class Test2 {
 
 	@Test
-	public void Connect(){
-		boolean connected= new Client().connect("username", "password");
-		System.out.print("CONNECTED:"+connected);
-		
+	public void Connect() {
+		boolean connected = new Client().connect("username", "password");
+		System.out.print("CONNECTED:" + connected);
+
 	}
+
 	@Test
-	public void loadWebData(){
-		Client cl=new Client();
-		Connector r=new BasicRequest(1,"");
+	public void loadWebData() {
+		Client cl = new Client();
+		Connector r = new BasicRequest(1, "");
 		cl.setContentHandler(1, new DefaultContentHandler());
-		try
-		{
+		try {
 			cl.request(r);
+		} catch (IOException e) {
 		}
-		catch (IOException e)
-		{}
-		try
-		{
+		try {
 			cl.loadContent(r);
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 

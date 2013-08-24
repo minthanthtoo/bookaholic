@@ -1,30 +1,41 @@
 package com.libraryclient.connection;
 
-import com.libraryclient.config.*;
-import com.libraryclient.content.*;
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import org.apache.http.*;
-import org.apache.http.entity.mime.content.*;
-import org.apache.http.message.*;
-import org.apache.http.util.*;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.message.HeaderGroup;
+import org.apache.http.util.EntityUtils;
+
+import com.libraryclient.config.Connection;
 import com.libraryclient.content.ContentHandler;
 
-public abstract class Post implements Connector
-{
+public abstract class Post implements Connector {
 	private HttpURLConnection mConnection;
 	private URI url;
 	private int RequestCode;
 	private String RequestData;
 	private boolean isRequestFinished = false;
-	private HeaderGroup mHeaders= new HeaderGroup();
+	private HeaderGroup mHeaders = new HeaderGroup();
 
 	private FileOutputStream mLocalStream = null;
 	private InputStream mRemoteStream = null;
 	private Thread mResultLoader = null;
-	
+
 	private ResponseCodeHandler mResponseCodeHandler;
 	/**
 	 * {@link InputStream } for {@link XMLHandler}
@@ -36,56 +47,57 @@ public abstract class Post implements Connector
 
 	private HttpResponse response;
 
-	public Post(int requestCode, String requestData)
-	{
+	public Post(int requestCode, String requestData) {
 		url = URI.create(Connection.CONNECTION_WEBSITE + "/?");
 		this.RequestCode = requestCode;
 		this.RequestData = requestData;
 	}
 
-	public URI getURI()
-	{
+	@Override
+	public URI getURI() {
 		return this.url;
 	}
 
-	public int getConnectCode()
-	{
+	@Override
+	public int getConnectCode() {
 		return RequestCode;
 	}
 
-	public String getConnectData()
-	{
+	@Override
+	public String getConnectData() {
 		return RequestData;
 	}
 
-	public boolean isConnected()
-	{
+	@Override
+	public boolean isConnected() {
 		return isRequestFinished;
 	}
 
-	public void addAuthentication(Authentication auth){
-		mAuthentication=auth;
+	@Override
+	public void addAuthentication(Authentication auth) {
+		mAuthentication = auth;
 		auth.authenticate(this);
 	}
-	public void addHeader(String name, String value)
-	{
+
+	@Override
+	public void addHeader(String name, String value) {
 		mHeaders.addHeader(new BasicHeader(name, value));
 	}
 
-	public void connect() throws IOException
-	{
+	@Override
+	public void connect() throws IOException {
 		// TODO Auto-generated method stub
-		response=ConnectionManager.post(this);
+		response = ConnectionManager.post(this);
 		// Examine the response status
 		System.out.println(response.getStatusLine());
 		onResponse(response.getStatusLine().getStatusCode());
 	}
 
-	public void onResponse(int responseCode)
-	{
+	@Override
+	public void onResponse(int responseCode) {
 		mResponseCodeHandler.onResponse(RequestCode);
 	}
-	
+
 	/**
 	 * This method does:
 	 * <ul>
@@ -106,14 +118,15 @@ public abstract class Post implements Connector
 	 *            {@link ContentHandler} for this current loading of results
 	 * 
 	 */
-	public void handleResponse(ContentHandler contentHandler) throws IOException
-	{
+	@Override
+	public void handleResponse(ContentHandler contentHandler)
+			throws IOException {
 		mResponseBytes = EntityUtils.toByteArray(response.getEntity());
-//		System.out.println(new String(mResponseBytes,
-//									  response.getEntity().
-//									  getContentEncoding().
-//									  getElements()[0].
-//									  getValue()));
+		// System.out.println(new String(mResponseBytes,
+		// response.getEntity().
+		// getContentEncoding().
+		// getElements()[0].
+		// getValue()));
 		response.getEntity().consumeContent();
 		//
 		// // Remote connection is now opened
@@ -176,30 +189,42 @@ public abstract class Post implements Connector
 
 	}
 
-	public void stopResponseHandling(ContentHandler h)
-	{
+	@Override
+	public void stopResponseHandling(ContentHandler h) {
 		h.stopHandling(this);
-		try
-		{
+		try {
 			mRemoteStream.close();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public String getStatusLine(){
+	@Override
+	public int getStatusCode() {
+		// TODO Auto-generated method stub
+		return 0;
+	};
+
+	@Override
+	public String getStatusLine() {
 		return response.getStatusLine().toString();
 	}
-	public InputStream getResponseStream()
-	{
+
+	@Override
+	public InputStream getResponseStream() {
 		return new ByteArrayInputStream(mResponseBytes);
 	}
-	
-	public byte[] getResponseBytes(){
+
+	@Override
+	public byte[] getResponseBytes() {
 		return mResponseBytes;
+	}
+
+	@Override
+	public void disconnect() {
+		// TODO Auto-generated method stub
+
 	}
 
 	Map<String, ContentBody> mParts = new HashMap<String, ContentBody>();
@@ -253,18 +278,15 @@ public abstract class Post implements Connector
 	// }
 	// }
 
-	public void addPostFile(String fileHandle, File file)
-	{
+	public void addPostFile(String fileHandle, File file) {
 		mParts.put(fileHandle, new FileBody(file));
 	}
 
-	public synchronized void addPostFile(File file)
-	{
+	public synchronized void addPostFile(File file) {
 		mParts.put(Integer.toString(mParts.size() + 1), new FileBody(file));
 	}
 
-	public Iterator<Map.Entry<String, ContentBody>> partsIterator()
-	{
+	public Iterator<Map.Entry<String, ContentBody>> partsIterator() {
 		return mParts.entrySet().iterator();
 	}
 }

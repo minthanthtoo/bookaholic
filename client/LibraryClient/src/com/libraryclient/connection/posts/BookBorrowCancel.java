@@ -11,6 +11,7 @@ public class BookBorrowCancel extends Post {
 		super(postCode, postData);
 	}
 
+	@Override
 	public String getTargetResponseTag() {
 		return Posts.BookBorrowCancel.RESPONSE_TAG;
 	}

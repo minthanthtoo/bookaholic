@@ -11,6 +11,7 @@ public class BookDescriptionUpdate extends Post {
 		super(postCode, postData);
 	}
 
+	@Override
 	public String getTargetResponseTag() {
 		return Posts.BookDescriptionUpdate.RESPONSE_TAG;
 	}

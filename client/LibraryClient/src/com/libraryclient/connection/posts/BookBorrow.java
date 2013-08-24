@@ -11,6 +11,7 @@ public class BookBorrow extends Post {
 		super(postCode, postData);
 	}
 
+	@Override
 	public String getTargetResponseTag() {
 		return Posts.BookBorrow.RESPONSE_TAG;
 	}
